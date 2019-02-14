@@ -6,12 +6,12 @@ const publicPath = path.join(__dirname, '/../public/');
 const port = process.env.PORT || 3000;
 console.log(publicPath);
 
-app.use(publicPath);
+app.use(express.static(publicPath));
 
-app.get('/', (res, req) => {
+app.get('/', (req, res) => {
     console.log('hallo');
     
-    req.sendFile(publicPath);
+    res.sendFile(publicPath);
 })
 
 app.listen(3000, () => { console.log("Server is up on port" + port); })
