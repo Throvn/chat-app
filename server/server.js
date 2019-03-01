@@ -26,11 +26,11 @@ io.on('connection', (socket) => {
     socket.on('createMessage', (msg) => {
         console.log(msg)
         io.emit('newMessage', generateMessage(msg.from, msg.text))
-        
     })
 
     socket.emit('newMessage', generateMessage("Admin", "You joined the chatroom"));
-    socket.broadcast.emit('newMessage', generateMessage("Admin", "New User joined"))
+    socket.broadcast.emit('newMessage', generateMessage("Admin", "New User joined"));
+
 });
 
 server.listen(3000, () => { console.log("Server is up on port" + port); })
