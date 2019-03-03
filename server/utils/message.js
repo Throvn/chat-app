@@ -5,4 +5,13 @@ const generateMessage = (from, text) => {
         createdAt: new Date().getTime()
     }
 }
-module.exports.generateMessage = generateMessage
+
+const generateLocation = (from, loc) => {
+    return {
+        from,
+        lat: loc.lat,
+        lon: loc.long,
+        createdAt: new Date().getTime()
+    }
+}
+module.exports = {generateMessage, generateLocation}

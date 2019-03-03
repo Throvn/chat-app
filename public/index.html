@@ -4,52 +4,49 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-
-    <title>Chatapp</title>
+    <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
+    <style>
+      .join-head {
+        font-family: 'Pacifico', cursive;
+      }
+    </style>
+    <title>Join - Chatroom</title>
   </head>
-  <body>
-      <div class="container p-5" style="min-height:100vh;">
-        <div class="row">
-                    <div class="col">
-                        <div class="row">
-                            <div class="col bg-warning rounded-top text-center">
-                                <h1>Chatapp</h1>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col bg-light"> <!--
-                                    <div class="text-center my-2"><p class="my-2 pl-2 pr-3 rounded btn-primary p-1 text-white d-inline">You joined the chatroom</p><br></div>
-                                    <p class="bg-white border d-inline-block my-2 px-2 rounded border-info">Hallo, neuer User</p><br>
-                                    <p class="bg-white border d-inline-block my-2 px-2 rounded border-danger">Hallo</p><br>
-                                    <div class="text-right"><p class="bg-white border d-inline-block my-2 px-2 rounded border-primary">Wie geht's euch?</p><br></div> -->
-                                    <ol id="messages">
-
-                                    </ol>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <form id="message-form">
-                                <div class="input-group mb-3 rounded-0">
-                                        <input type="text" class="form-control rounded-0" placeholder="Type a message..." name="message" style="border-bottom-left-radius: .25rem !important;" aria-label="Recipient's username" aria-describedby="button-addon2">
-                                        <div class="input-group-append">
-                                          <button class="btn btn-outline-warning" style="border-top-right-radius: .25rem !important;" type="submit" id="button-addon2">Send</button>
-                                        </div>
-                            </form>
-                                      </div>
-                        </div>
-                    </div>
+  <body style="background-image: url('https://i2.wp.com/opticalcortex.com/app/uploads/2014/08/grad.jpg'); height: 100vh; background-size: cover; background-repeat: no-repeat;">
+    <div class="container">
+      <div class="row" style="height: 100vh;">
+        <div class="col-6 my-auto mx-auto">
+          <div class="head">
+            <h1 class="join-head text-center mb-4">Join a room</h1>
+            <hr>
+          </div>
+          <div class="join-body">
+              <form action="./chat.html">
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Username</label>
+                    <input type="text" name="name" class="form-control btn text-left" id="exampleInputEmail1" required aria-describedby="emailHelp" placeholder="Username">
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">Room</label>
+                    <input type="text" name="room" class="form-control btn text-left" id="exampleInputPassword1" required placeholder="Chat room">
+                  </div>
+                  <div class="form-group form-check">
+                    <input type="checkbox" name="remember-room" class="form-check-input" id="exampleCheck1">
+                    <label class="form-check-label" for="exampleCheck1">Remember this room</label>
+                  </div>
+                  <input type="submit" class="btn btn-primary" value="Submit">
+              </form>
+          </div>
         </div>
       </div>
+    </div>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="./js/jquery-3.3.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-    <script src="./socket.io/socket.io.js"></script>
-    <script src="./js/index.js"></script>
   </body>
 </html>
