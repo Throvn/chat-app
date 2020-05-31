@@ -1,15 +1,15 @@
 {
   "name": "chat-app",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "A simple chatapp for demo purposes.",
+  "main": "server.js",
   "scripts": {
     "start": "node server/server.js"
   },
   "engines": {
     "node": "8.12.0"
   },
-  "author": "",
+  "author": "Louis Stanko",
   "license": "ISC",
   "dependencies": {
     "@sendgrid/mail": "^6.5.5",

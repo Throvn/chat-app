@@ -5,17 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-	<script>
-		if(!location.search || location.search.split('=').length < 3 || !location.search.includes('name') || !location.search.includes('room')) {
-			location.replace('./')
-		}
-		function toggleThemes() {
-			const style = document.getElementById('bootstrap-style');
-			if(style.getAttribute('href').includes('dark')) {
-				style.setAttribute('href', './css/bootstrap.min.css')
-			} else style.setAttribute('href', './css/bootstrap.dark.min.css');
-		}
-	</script>
+	<script src="./js/chat.preload.js"></script>
 
     <!-- Bootstrap CSS -->
 	<link rel="stylesheet" href="./icons/codicon.css">
