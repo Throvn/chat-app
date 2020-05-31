@@ -1,0 +1,80 @@
+.hyphens {
+    -webkit-hyphens: auto;
+    -moz-hyphens: auto;
+    -ms-hyphens: auto;
+    hyphens: auto;
+}
+.join-head {
+    font-family: 'Pacifico', cursive;
+}
+.sidebar-icons {
+    font: normal normal normal 45px/1 codicon !important;
+}
+.non-selectable {
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+}
+
+#message-container {
+    max-height: 100vh;
+    overflow-y: scroll;
+}
+
+#messages {
+    overflow-wrap: break;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+#message-input {
+    background-color: #fff;
+    color: #767676 !important;
+}
+
+.msg-container {
+    width: fit-content;
+    max-width: 75%;
+    overflow: scroll;
+}
+
+.msg-right {
+    border-radius: 20px 0 20px 20px;
+}
+
+.msg-left {
+    border-radius: 0 20px 20px 20px;
+}
+
+.map-style {
+    min-height: 10rem; 
+    margin-bottom: -32px !important; 
+    z-index: 1; 
+}
+
+.map-time-right {
+    position: relative; 
+    z-index: 100000; 
+    border-radius: 20px 0 20px 0;
+    float: right;
+}
+
+.map-time-left {
+    position: relative; 
+    z-index: 100000; 
+    border-radius: 0 20px 0 20px;
+}
+
+.nav-header {
+    height: 55px;
+}
+
+.vh-100 {
+    height: calc(100vh - 55px) !important;
+}
+
+@media (min-width: 992px) {
+    .vh-100 {
+        height: 100vh !important;
+    }
+}

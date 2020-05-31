@@ -12,12 +12,11 @@ const server = http.createServer(app);
 const io = socketIO(server)
 
 const publicPath = path.join(__dirname, '/../public/');
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
 
 app.use(express.static(publicPath));
 
 io.on('connection', (socket) => {
-    
     socket.on('disconnect', () => { 
         const removedUser = removeUser(socket.id);
         if(removedUser) {

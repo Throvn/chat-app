@@ -5,139 +5,187 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+	<script>
+		if(!location.search || location.search.split('=').length < 3 || !location.search.includes('name') || !location.search.includes('room')) {
+			location.replace('./')
+		}
+		function toggleThemes() {
+			const style = document.getElementById('bootstrap-style');
+			if(style.getAttribute('href').includes('dark')) {
+				style.setAttribute('href', './css/bootstrap.min.css')
+			} else style.setAttribute('href', './css/bootstrap.dark.min.css');
+		}
+	</script>
+
     <!-- Bootstrap CSS -->
-    <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css"
-      integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
-      crossorigin=""/>
-    <script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"
-      integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg=="
-      crossorigin=""></script>
-    <title>Chatapp</title>
-    <style>
-    .hyphens {
-      -webkit-hyphens: auto;
-      -moz-hyphens: auto;
-      -ms-hyphens: auto;
-      hyphens: auto;
-    }
-    .join-head {
-        font-family: 'Pacifico', cursive;
-    }
-    </style>
+	<link rel="stylesheet" href="./icons/codicon.css">
+    <link id="bootstrap-style" rel="stylesheet" href="./css/bootstrap.min.css">
+	
+	<!-- Leaflet.js -->
+	<link rel="stylesheet" href="./css/leaflet.css">
+	<script src="./js/leaflet.js"></script>
+	
+	<link rel="stylesheet" href="./css/chat.css">
+	<link rel="shortcut icon" href="./icons/favicon.png" type="image/png">
+
+	<title>Chatapp</title>
   </head>
-  <body  style="background-image: url('https://i2.wp.com/opticalcortex.com/app/uploads/2014/08/grad.jpg'); height: 100vh; background-size: cover; background-repeat: no-repeat;">
-      <div class="container-fluid" style="min-height:100vh;">
-        <div class="row" style="min-height: 100vh; max-height: 100vh;">
-                <div id="sidebar-users" class="col-4 bg-dark text-white text-center">
-            </div>
-                    <div class="col" style="max-height: 100vh;">
-                        <div class="row h-100" id="message-container" style=" overflow-y: scroll;">
-                            <div class="col bg-light"> <!--
-                                    <p class="bg-white border d-inline-block my-2 px-2 rounded border-info">Hallo, neuer User</p>
-                                    <p class="bg-white border d-inline-block my-2 px-2 rounded border-danger">Hallo</p><br>
-                                    <div class="text-right"><p class="bg-white border d-inline-block my-2 px-2 rounded border-primary">Wie geht's euch?</p><br></div> -->
-                                    <div id="messages" class="hyphens h-100 pb-5" style="overflow-wrap: break; overflow-y: scroll;"> 
+  <body>
+	<nav class="navbar navbar-light bg-light d-lg-none nav-header">
+		<a class="navbar-brand">
+			<img src="./icons/favicon.png" width="30" height="30" alt="Chatapp Logo" loading="lazy">
+			<b class="text-dark">Chatapp</b>
+		</a>
+		<span class="navbar-text">
+			<i class="codicon codicon-color-mode m-0 p-0 text-dark" onclick="toggleThemes()"></i>
+		</span>
+	</nav>
+    <div class="container-fluid vh-100">
+		<div class="row vh-100">
+			<div class="d-none d-lg-block col-1 text-center p-0 border-right">
+				<i class="codicon codicon-comment sidebar-icons my-4 p-3 bg-primary rounded-circle"></i>
+			</div>
+            <div id="sidebar-users" class="col-md-4 border-right">
+			</div>
+			
+			<div class="col-12 col-md-8 col-lg-7">
+				<div class="row" id="message-container">
+					<div class="col-12 border-bottom border-top sticky-top bg-white" id="navbar-chat">
+						
+					</div>
+					<div class="col-12 pb-5"> 
+						<!-- 								
+						<p class="bg-white border d-inline-block my-2 px-2 rounded border-info">Hallo, neuer User</p>
+						<p class="bg-white border d-inline-block my-2 px-2 rounded border-danger">Hallo</p><br>
+						<div class="text-right"><p class="bg-white border d-inline-block my-2 px-2 rounded border-primary">Wie geht's euch?</p><br></div> -->
+						<div id="messages" class="hyphens h-100 pb-5"> 
 
-                                    </div>
-                            </div>
-                        </div>
-                        <div class="row" style="margin-top: -38px;">
-                            <form autocomplete="off" id="message-form" style="min-width: 100%;">
-                                <div class="input-group rounded-0 bg-white rounded-medium">
-                                        <input type="text" id="message-input" class="form-control" placeholder="Type a message..." name="message" style="border-bottom-left-radius: .25rem !important;" aria-label="Recipient's username" aria-describedby="button-addon2">
-                                        <div class="input-group-append">
-                                            <button class="btn btn-outline-success rounded-0" title="Send your Location" type="button" id="send-location"><i class="fas fa-map-marker-alt"></i></button>
-                                          <button class="btn btn-outline-warning" id="message-form" style="border-top-right-radius: 0 !important;" type="submit" id="button-addon2">Send</button>
-                                        </div>
-                            </form>
-                        </div>
-                    </div>
+						</div>
+					</div>
+					<div class="row m-0 fixed-bottom">
+						<div class="d-none d-lg-block col-1 text-center">
+							<i class="codicon codicon-color-mode sidebar-icons m-0 p-0" onclick="toggleThemes()"></i>
+						</div>
+						<div class="offset-md-4 col-12 col-md-8 col-lg-7 p-0">
+							<form autocomplete="off" id="message-form" class="p-3 border-top bg-white w-100">
+								<div class="input-group rounded-0 bg-white rounded-medium">
+										<input type="text" id="message-input" class="form-control-plaintext border rounded-pill px-2 text-dark" placeholder="Type a message..." name="message">
+										<div class="input-group-append">
+											<button class="btn btn-outline-primary rounded-pill mx-3" title="Send your Location" type="button" id="send-location"><i class="codicon codicon-location"></i></button>
+											<button class="btn btn-outline-primary rounded-pill" id="message-form" type="submit">Send</button>
+										</div>
+									</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
         </div>
-      </div>
+    </div>
 
 
-      <!-- Templates -->
-      <script id="admin-message-template" type="text/html">
+    <!-- Templates -->
+    <script id="admin-message-template" type="text/html">
         <div class="d-block">
-                <div class="text-center my-2"><p class="my-2 px-2 rounded btn-primary p-1 text-white d-inline" title="{{time}}">{{message}}</p><br></div>
+            <div class="text-center my-2 non-selectable">
+				<p class="my-2 px-2 rounded btn-primary p-1 text-white d-inline" data-toggle="tooltip" data-placement="bottom" title="{{time}}">
+					{{message}}
+				</p>
+				<br>
+			</div>
         </div>
-      </script>
-      <script id="toast-template" type="text/html">
-        <div aria-live="polite" aria-atomic="true" style="position: fixed; min-height: 200px;">
-                <div class="toast border-danger mt-4 mr-5" style="position: fixed; top: 0; right: 0;">
-                  <div class="toast-header border-danger">
-                    <strong class="mr-auto text-danger">{{type}}</strong>
-                    <small>now</small>
-                    <button type="button" class="ml-2 mb-1 close text-danger" data-dismiss="toast" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>
-                  <div class="toast-body">
-                    {{text}}
-                    <br>
-                    <small>You will be redirected to the Join page... choose another Username.</small>
-                  </div>
-                </div>
-              </div>
-      </script>
-
-      <script id="message-template" type="text/html">
-        <div class="d-block">
-            <div class="msg-container d-inline-block my-2 px-2 bg-white border rounded border-info" style="min-width: 25%;">
-                <div class="row">
-                    <div class="col-8">
-                        <b><span>{{name}}</span></b>
-                    </div>
-                    
-                    <div class="col-4 text-right">
-                        <small>{{createdAt}}</small>
-                    </div>
-                </div>
-                <p class="message border-top">{{message}}</p>
+	</script>
+	  
+	<script id="my-message-template" type="text/html">
+        <div class="d-block text-right">
+            <div class="msg-container msg-right d-inline-block my-2 px-2 bg-primary">
+				<p class="message d-inline-block m-1">{{message}} <small>{{createdAt}}</small></p>
             </div>
         </div>
-      </script>
+    </script>
 
-      <script id="location-template" type="text/html">
+	<!-- Bootstrap Toast -->
+    <script id="toast-template" type="text/html">
+		<div class="position-fixed" aria-live="polite" aria-atomic="true" style="min-height: 200px; z-index: 1000000;">
+			<div class="toast border-danger mt-4 mr-5 position-fixed" style="top: 0; right: 0;">
+				<div class="toast-header border-danger">
+					<strong class="mr-auto text-danger">{{type}}</strong>
+					<small>now</small>
+					<button type="button" class="ml-2 mb-1 close text-danger" data-dismiss="toast" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="toast-body">
+					{{text}}
+					<br>
+					<small>You will be redirected to the Join page... choose another Username.</small>
+				</div>
+			</div>
+		</div>
+    </script>
+
+    <script id="message-template" type="text/html">
         <div class="d-block">
-          <div class="col-xl-5 col-md-7 col-sm-9 bg-white border d-inline-block my-2 px-0 rounded border-success">
-            <div class="row px-2">
-                <div class="col-8">
-                    <b><span>{{name}}</span></b>
-                </div>
-                
-                <div class="col-4 text-right">
-                    <small>{{time}}</small>
-                </div>
+			<div class="m-0"><b>{{name}}</b></div>
+            <div class="msg-container msg-left d-inline-block mb-2 px-2 border border-primary">
+                <p class="message m-1"><small>{{createdAt}}</small> {{message}}</p>
             </div>
-            <div id="{{mapId}}" style="min-height: 10rem;"></div>
+        </div>
+    </script>
+
+	<script id="location-template" type="text/html">
+		<div class="m-0"><b>{{name}}</b></div>
+        <div class="d-block msg-left">
+          	<div class="msg-left col-xl-5 col-md-7 col-sm-9 bg-white border d-inline-block mb-2 p-0 border-primary" style="z-index: 2;">
+				<div id="{{mapId}}" class="map-style msg-left">
+				</div>
+				<span class="bg-primary d-inline-block p-1 px-2 map-time-left"><small>{{time}}</small></span>
           </div>
         </div>
-      </script>
+	</script>
+	  
+	<script id="my-location-template" type="text/html">
+        <div class="d-block text-right msg-right">
+          	<div class="col-xl-5 col-md-7 col-sm-9 bg-white border d-inline-block mb-2 p-0 border-primary msg-right" style="z-index: 2;">
+				<div id="{{mapId}}" class="map-style msg-right">
+				</div>
+				<span class="map-time-right bg-primary p-1 px-2"><small>{{time}}</small></span>
+          </div>
+        </div>
+    </script>
 
-      <script id="sidebar-template" type="text/html">
-                <h1 class="join-head my-3">{{room}}</h1>
-                <hr class="bg-white">
-                <h3>Users</h3>
-                <div id="users">
-                    {{#users}}
-                        <h5>{{username}}</h5>
-                    {{/users}}
-                </div>
-          
-      </script>
+    <script id="sidebar-template" type="text/html">
+		<div class="row">
+			<div class="col">
+				<h4 class="font-weight-bold text-left my-3 d-inline-block"><i class="codicon codicon-organization"></i> {{heading}}</h4>
+				<a href="/" target="_blank"><span class="text-right d-inline-block float-right mt-3"><i class="codicon codicon-add"></i></span></a>
+				<input type="search" id="search-participants" onkeyup="searchParticipants(this)" class="border rounded p-1 w-100" placeholder="Search...">
+				<small class="d-inline-block mb-4">You are known as: <b>{{name}}</b> </small>
+			</div>
+		</div>
+		<div class="row" id="users">
+			{{#users}}
+			<div class="col-12 text-left mb-2 ml-4">
+				<h6 class="d-inline-block">{{username}}</h6>
+			</div>
+			{{/users}}
+		</div>
+	</script>
+	  
+	<script id="navbar-template" type="text/html">
+		<h4 id="navbarRooms" class="font-weight-bold text-left my-3">
+			<i class="codicon codicon-comment-discussion"></i> {{room}}
+		</h4>
+	</script>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/3.0.1/mustache.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.6.0/qs.min.js"></script>
+    <script src="./js/mustache.min.js"></script>
+    <script src="./js/moment.min.js"></script>
+    <script src="./js/qs.min.js"></script>
     <script src="./js/jquery-3.3.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <script src="./socket.io/socket.io.js"></script>
+    <script src="./js/popper.js"></script>
+    <script src="./js/bootstrap.4.5.0.js"></script>
+	<script src="./socket.io/socket.io.js"></script>
     <script src="./js/index.js"></script>
   </body>
 </html>

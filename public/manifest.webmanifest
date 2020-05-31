@@ -1,0 +1,17 @@
+{
+    "name": "Throvn Chat app",
+    "short_name": "Chat app",
+    "start_url": ".",
+    "display": "standalone",
+    "background_color": "#fff",
+    "description": "A simple chat app.",
+    "icons": [{
+        "src": "icons/favicon.png",
+        "sizes": "192x192",
+        "type": "image/png"
+    }, {
+        "src": "icons/favicon144.png",
+        "sizes": "144x144",
+        "type": "image/png"
+    }]
+}

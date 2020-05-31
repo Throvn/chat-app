@@ -1,0 +1,10 @@
+body {
+    background: linear-gradient(90deg, #d53369 0%, #daae51 100%);
+    height: 100vh; 
+    background-size: cover; 
+    background-repeat: no-repeat;
+}
+
+label {
+    margin: 0;
+}
